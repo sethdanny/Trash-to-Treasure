@@ -4,14 +4,15 @@
   "description": "A Waste management system for clean community",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "trash-to-treasure"
+    "url": "https://github.com/sethdanny/Trash-to-Treasure"
   },
   "author": "Nadduli Daniel, Thulisile Ngomane, Ashley John",
-  "license": "MIT ",
+  "license": "MIT license",
   "dependencies": {
     "colors": "^1.4.0",
     "dotenv": "^16.0.3",
