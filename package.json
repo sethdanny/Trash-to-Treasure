@@ -1,0 +1,15 @@
+{
+  "name": "trash-to-treasure",
+  "version": "1.0.0",
+  "description": "A Waste management system for clean community",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "trash-to-treasure"
+  },
+  "author": "Nadduli Daniel, Thulisile Ngomane, Ashley John",
+  "license": "MIT "
+}
