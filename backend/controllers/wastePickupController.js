@@ -16,4 +16,10 @@ const deleteRequest = (req, res) => {
   res.status(200).json({ message: `Delete a waste pickup request by ID ${req.params.id}` });
 };
 
-module.exports = { pickupRequests, createNewRequest, getRequest, updateRequest, deleteRequest };
+module.exports = {
+  pickupRequests,
+  createNewRequest,
+  getRequest,
+  updateRequest,
+  deleteRequest
+};
