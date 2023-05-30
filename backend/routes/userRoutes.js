@@ -2,10 +2,6 @@
 
 const express = require('express');
 const router = express.Router();
-const { registerUser, userLogin } = require('../controllers/userController');
-
-router.post('/register', registerUser);
-router.post('/login', userLogin);
 
 /* eslint-disable no-unused-vars */
 // POST request for user registration

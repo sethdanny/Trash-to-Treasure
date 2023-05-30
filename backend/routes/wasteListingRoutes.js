@@ -5,14 +5,14 @@ const express = require('express');
 const router = express.Router();
 
 // GET request to fetch waste listings
-router.get('/api/waste/', (req, res) => {
+router.get('/', (req, res) => {
   // Logic to fetch waste listings from the database
   // Return the fetched waste listings as a response
   res.status(200).json({ message: 'Fetch waste listings' });
 });
 
 // POST request to create a new waste listing
-router.post('/api/waste/', (req, res) => {
+router.post('/', (req, res) => {
   // Logic to create a new waste listing in the database
   // Access the request body to get the details of the waste listing
   const wasteListing = req.body;
@@ -23,7 +23,7 @@ router.post('/api/waste/', (req, res) => {
 });
 
 // PUT request to update a waste listing
-router.put('/api/waste/:id/', (req, res) => {
+router.put('/:id', (req, res) => {
   // Logic to update a waste listing in the database
   // Access the request parameters (e.g., ID) and body to get the updated details
   const wasteListingId = req.params.id;
@@ -35,7 +35,7 @@ router.put('/api/waste/:id/', (req, res) => {
 });
 
 // DELETE request to delete a waste listing
-router.delete('/api/waste/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   // Logic to delete a waste listing from the database
   // Access the request parameter (e.g., ID) to determine which waste listing to delete
   const wasteListingId = req.params.id;

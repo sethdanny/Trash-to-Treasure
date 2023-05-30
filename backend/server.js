@@ -7,8 +7,9 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
-app.use('/api/requests/', require('./routes/wasteProductPickupRoutes'));
-app.use('/api/users/', require('./routes/userRoutes'));
+app.use('/api/user', require('./routes/userRoutes'));
+app.use('/api/waste/', require('./routes/wasteListingRoutes'));
+app.use('/api/pickup-requests', require('./routes/pickupRequestRoutes'));
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
