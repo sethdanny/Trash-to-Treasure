@@ -1,9 +1,13 @@
 #!/usr/bin/node
+/* eslint-disable no-unused-vars */
 
 const express = require('express');
-// eslint-disable-next-line no-unused-vars
 const dotenv = require('dotenv').config();
 const port = process.env.PORT || 3000;
+const colors = require('colors');
+const connectDB = require('./config/db');
+
+connectDB();
 
 const app = express();
 
