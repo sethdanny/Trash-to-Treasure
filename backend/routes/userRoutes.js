@@ -5,7 +5,7 @@ const router = express.Router();
 
 /* eslint-disable no-unused-vars */
 // POST request for user registration
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
   // Logic to register a new user
   // Access the request body to get the user registration details
   const userRegistrationDetails = req.body;
@@ -16,7 +16,7 @@ router.post('/register', (req, res) => {
 });
 
 // POST request for user login
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   // Logic to authenticate user login
   // Access the request body to get the user login credentials
   const userLoginCredentials = req.body;
@@ -27,7 +27,7 @@ router.post('/login', (req, res) => {
 });
 
 // POST request for user logout
-router.post('/logout', (req, res) => {
+router.post('/logout', async (req, res) => {
   // Logic to handle user logout
   // Perform any necessary cleanup or session management tasks
   // Return a success message as a response
@@ -35,14 +35,14 @@ router.post('/logout', (req, res) => {
 });
 
 // GET request for user profile
-router.get('/profile', (req, res) => {
+router.get('/profile', async (req, res) => {
   // Logic to fetch the user profile based on the authenticated user
   // Return the user profile details as a response
   res.status(200).json({ profile: 'user-profile-details' });
 });
 
 // POST request for password reset request
-router.post('/password/reset/request', (req, res) => {
+router.post('/password/reset/request', async (req, res) => {
   // Logic to handle the password reset request
   // Access the request body to get the user email or username for password reset
   const userIdentifier = req.body.userIdentifier;
@@ -53,7 +53,7 @@ router.post('/password/reset/request', (req, res) => {
 });
 
 // POST request for password reset
-router.post('/password/reset', (req, res) => {
+router.post('/password/reset', async (req, res) => {
   // Logic to handle the password reset
   // Access the request body to get the user email or username, new password, and password reset token
   const userIdentifier = req.body.userIdentifier;

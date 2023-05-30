@@ -7,7 +7,7 @@ const express = require('express');
 const router = express.Router();
 
 // POST request to create a pickup request
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   // Logic to create a new pickup request
   // Access the request body to get the pickup request details
   const pickupRequestDetails = req.body;
@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
 });
 
 // GET request to retrieve pickup requests
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // Logic to retrieve pickup requests based on filters or criteria
   // Access query parameters to determine the filters (e.g., location, waste type, availability)
 
@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
 });
 
 // PUT request to update a pickup request
-router.put('/:pickupRequestId', (req, res) => {
+router.put('/:pickupRequestId', async (req, res) => {
   // Logic to update a pickup request
   // Access the pickup request ID from the URL parameters
   const pickupRequestId = req.params.pickupRequestId;
@@ -42,7 +42,7 @@ router.put('/:pickupRequestId', (req, res) => {
 });
 
 // DELETE request to cancel a pickup request
-router.delete('/:pickupRequestId', (req, res) => {
+router.delete('/:pickupRequestId', async (req, res) => {
   // Logic to cancel a pickup request
   // Access the pickup request ID from the URL parameters
   const pickupRequestId = req.params.pickupRequestId;
