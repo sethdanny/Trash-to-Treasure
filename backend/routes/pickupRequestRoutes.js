@@ -1,4 +1,5 @@
 #!/usr/bin/node
+/* eslint-disable no-unused-vars */
 
 // Module to handle routes about payments
 
@@ -20,7 +21,7 @@ router.post('/pickup-requests', (req, res) => {
 router.get('/pickup-requests', (req, res) => {
   // Logic to retrieve pickup requests based on filters or criteria
   // Access query parameters to determine the filters (e.g., location, waste type, availability)
-  
+
   // Query the database and fetch pickup requests that match the specified filters
   // Return the retrieved pickup requests as a response
   res.json({ pickupRequests: 'retrieved-pickup-requests' });

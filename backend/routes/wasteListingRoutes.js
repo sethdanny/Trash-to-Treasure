@@ -1,5 +1,4 @@
 #!/usr/bin/node
-
 // Module to handle routes about payments
 
 const express = require('express');
