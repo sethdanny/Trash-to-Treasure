@@ -2,7 +2,7 @@
 /* role model to handle role collections */
 
 const mongoose = require('mongoose');
-const roleSchema = mongoose.Schema({
+const roleSchema = new mongoose.Schema({
   role_name: { type: String, required: true }
 });
 

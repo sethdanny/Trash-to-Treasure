@@ -1,5 +1,5 @@
 #!/usr/bin/node
-// Module to handle routes about payments
+// Module to handle routes about waste listing
 
 const express = require('express');
 const router = express.Router();
