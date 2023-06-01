@@ -3,6 +3,7 @@
 const upload = require('../config/multerConfig');
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
   try {
@@ -32,21 +33,35 @@ const registerUser = async (req, res) => {
 
     // Save the user to the database
     const savedUser = await newUser.save();
-
     res.status(201).json(savedUser);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to register new user' });
+    res.status(500).json({ error: error.message });
   }
 };
 
 const userLogin = async (req, res) => {
-  // Logic to authenticate user login
-  // Access the request body to get the user login credentials
-  const userLoginCredentials = req.body;
+  try {
+    // Extract email and password from request body
+    const { email, password } = req.body;
+    // Retrieve the user from the database based on the email
+    const user = await User.findOne({ email });
+    if (!user) {
+      // User with the provided email not found
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
 
-  // Validate the user login credentials and generate a JWT token for authentication
-  // Return the JWT token as a response
-  res.status(200).json({ token: 'your-jwt-token' });
+    // Compare the provided password with the stored hashed password
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      // your password doesnt match
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+    const token = jwt.sign({ userId: user._id }, 'your-secret-key');
+    // Return the token as the response
+    res.json({ token });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to login' });
+  }
 };
 
 const userLogout = async (req, res) => {
