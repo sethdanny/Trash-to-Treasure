@@ -7,40 +7,35 @@ const bcrypt = require('bcrypt');
 const registerUser = async (req, res) => {
   try {
     // Extract fields from request body
-    const { firstName, lastName, email, password, contactNumber, address, profilePicture } = req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      contactNumber,
+      address
+    } = req.body;
 
-    // Upload profile picture
-    upload.single('profilePicture')(req, res, async (err) => {
-      if (err) {
-        // Handle upload error
-        return res.status(500).json({ error: 'Failed to upload profile picture' });
-      }
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-      try {
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Create a new user instance
-        const newUser = new User({
-          firstName,
-          lastName,
-          email,
-          password: hashedPassword,
-          contactNumber,
-          address,
-          profilePicture: req.file ? req.file.filename : undefined
-        });
-
-        // Save the user to the database
-        const savedUser = await newUser.save();
-
-        res.status(201).json(savedUser);
-      } catch (error) {
-        res.status(500).json({ error: 'Failed to register user' });
-      }
+    // Create a new user instance
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+      contactNumber,
+      address,
+      profilePicture: req.file ? req.file.filename : undefined
     });
+
+    // Save the user to the database
+    const savedUser = await newUser.save();
+
+    res.status(201).json(savedUser);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to register user' });
+    res.status(500).json({ error: 'Failed to register new user' });
   }
 };
 

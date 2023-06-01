@@ -4,8 +4,6 @@
 
 const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
-  user_id: { type: mongoose.Schema.Types.ObjectId, default: mongoose.Types.ObjectId },
-  role_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Role', required: true },
   firstName: { type: String, required: true, min: 2, max: 50 },
   lastName: { type: String, required: true, min: 2, max: 50 },
   email: { type: String, required: true, unique: true },

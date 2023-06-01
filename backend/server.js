@@ -1,23 +1,18 @@
 #!/usr/bin/node
 /* eslint-disable no-unused-vars */
 const express = require('express');
+const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const port = process.env.PORT || 3000;
 const colors = require('colors');
 const connectDB = require('./config/db');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const multer = require('multer');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const path = require('path');
 
 connectDB();
 
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/waste/', require('./routes/wasteListingRoutes'));
