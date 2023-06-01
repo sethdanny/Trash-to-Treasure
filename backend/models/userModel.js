@@ -11,8 +11,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   address: { type: String, required: true },
-  contact_number: { type: Number, required: true },
-  picturePath: { type: String }
+  contactNumber: { type: Number, required: true },
+  profilePicture: { type: String }
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

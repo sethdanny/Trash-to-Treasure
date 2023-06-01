@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A Waste management system for clean community",
   "main": "server.js",
-  "type": "module",
     "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js"

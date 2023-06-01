@@ -1,14 +1,47 @@
 #!/usr/bin/node
 /* eslint-disable no-unused-vars */
+const upload = require('../config/multerConfig');
+const User = require('../models/userModel');
+const bcrypt = require('bcrypt');
 
 const registerUser = async (req, res) => {
-  // Logic to register a new user
-  // Access the request body to get the user registration details
-  const userRegistrationDetails = req.body;
+  try {
+    // Extract fields from request body
+    const { firstName, lastName, email, password, contactNumber, address, profilePicture } = req.body;
 
-  // Process the user registration details and create a new user in the database
-  // Return a success message as a response
-  res.status(200).json({ message: 'User registered successfully' });
+    // Upload profile picture
+    upload.single('profilePicture')(req, res, async (err) => {
+      if (err) {
+        // Handle upload error
+        return res.status(500).json({ error: 'Failed to upload profile picture' });
+      }
+
+      try {
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create a new user instance
+        const newUser = new User({
+          firstName,
+          lastName,
+          email,
+          password: hashedPassword,
+          contactNumber,
+          address,
+          profilePicture: req.file ? req.file.filename : undefined
+        });
+
+        // Save the user to the database
+        const savedUser = await newUser.save();
+
+        res.status(201).json(savedUser);
+      } catch (error) {
+        res.status(500).json({ error: 'Failed to register user' });
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to register user' });
+  }
 };
 
 const userLogin = async (req, res) => {
