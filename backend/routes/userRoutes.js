@@ -6,6 +6,7 @@ const upload = require('../config/multerConfig');
 
 const {
   registerUser,
+  registerPage,
   userLogin,
   userLogout,
   userProfile,
@@ -16,6 +17,7 @@ const {
 /* eslint-disable no-unused-vars */
 // user authentications
 router.post('/register', upload.single('profilePicture'), registerUser);
+router.get('/register_page', registerPage);
 router.post('/login', userLogin);
 router.post('/logout', userLogout);
 router.get('/profile', userProfile);

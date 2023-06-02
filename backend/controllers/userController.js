@@ -5,6 +5,27 @@ const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const handleErrors = (err) => {
+  console.log(err.message, err.code);
+  const errors = { email: '', password: '' };
+  // duplicate email error
+  if (err.code === 11000) {
+    errors.email = 'that email is already registered';
+    return errors;
+  }
+
+  // validation errors
+  if (err.message.includes('user validation failed')) {
+    // console.log(err);
+    Object.values(err.errors).forEach(({ properties }) => {
+      // console.log(val);
+      // console.log(properties);
+      errors[properties.path] = properties.message;
+    });
+  }
+  return errors;
+};
+
 const registerUser = async (req, res) => {
   try {
     // Extract fields from request body
@@ -34,9 +55,14 @@ const registerUser = async (req, res) => {
     // Save the user to the database
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  } catch (err) {
+    const errors = handleErrors(err);
+    res.status(400).json({ errors });
   }
+};
+
+const registerPage = async (req, res) => {
+  res.status(200).json({ message: 'registration page' });
 };
 
 const userLogin = async (req, res) => {
@@ -65,16 +91,44 @@ const userLogin = async (req, res) => {
 };
 
 const userLogout = async (req, res) => {
-  // Logic to handle user logout
-  // Perform any necessary cleanup or session management tasks
-  // Return a success message as a response
-  res.status(200).json({ message: 'User logged out successfully' });
+  try {
+    const { userId, token } = req;
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Remove the token from the invalidatedTokens array
+    user.invalidatedTokens = user.invalidatedTokens.filter((t) => t !== token);
+
+    // Save the updated user
+    await user.save();
+
+    res.json({ message: 'Logout successful' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 const userProfile = async (req, res) => {
-  // Logic to fetch the user profile based on the authenticated user
-  // Return the user profile details as a response
-  res.status(200).json({ profile: 'user-profile-details' });
+  try {
+    const { userId } = req;
+
+    // Find the user by ID in the MongoDB collection
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Return the user profile
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch user profile' });
+  }
 };
 
 const resetPasswordRequest = async (req, res) => {
@@ -101,6 +155,7 @@ const resetPassword = async (req, res) => {
 
 module.exports = {
   registerUser,
+  registerPage,
   userLogin,
   userLogout,
   userProfile,
