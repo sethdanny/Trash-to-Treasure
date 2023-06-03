@@ -1,5 +1,5 @@
 # Trash to Treasure
-The trash to treasure project aims to provide a waste product picking service that will help communities dispose off their waste products in a clean and efficient manner. This project will create a platform where people can easily request waste product pickup services, and a team of waste pickups will collect, sort, and dispose off the waste properly. By doing so, we aim to promote sustainable practices and ensure a clean and healthy environment for the community.
+<p> The trash to treasure project aims to provide a waste product picking service that will help communities dispose off their waste products in a clean and efficient manner. This project will create a platform where people can easily request waste product pickup services, and a team of waste pickups will collect, sort, and dispose off the waste properly. By doing so, we aim to promote sustainable practices and ensure a clean and healthy environment for the community. </p>
 ## Requirements
 ### Frontend
 * HTML, CSS, AND JavaScript
