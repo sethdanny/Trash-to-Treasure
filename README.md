@@ -30,3 +30,4 @@ The required enviornment variables should be stored in a file named .env and eac
 ### Usage
 Start the run using your local terminal by running npm run server.
 ### Tests
+* Test the API endpoints using Postman
