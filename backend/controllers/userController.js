@@ -123,7 +123,6 @@ const userProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-
     // Return the user profile
     res.json(user);
   } catch (error) {
