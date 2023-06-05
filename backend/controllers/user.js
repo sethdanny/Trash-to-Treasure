@@ -1,32 +1,11 @@
 #!/usr/bin/node
 /* eslint-disable no-unused-vars */
 const upload = require('../config/multerConfig');
-const User = require('../models/userModel');
+const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const handleErrors = (err) => {
-  console.log(err.message, err.code);
-  const errors = { email: '', password: '' };
-  // duplicate email error
-  if (err.code === 11000) {
-    errors.email = 'that email is already registered';
-    return errors;
-  }
-
-  // validation errors
-  if (err.message.includes('user validation failed')) {
-    // console.log(err);
-    Object.values(err.errors).forEach(({ properties }) => {
-      // console.log(val);
-      // console.log(properties);
-      errors[properties.path] = properties.message;
-    });
-  }
-  return errors;
-};
-
-const registerUser = async (req, res) => {
+const registerUser = async (req, res, next) => {
   try {
     // Extract fields from request body
     const {
@@ -35,8 +14,18 @@ const registerUser = async (req, res) => {
       email,
       password,
       contactNumber,
-      address
+      address,
+      role
     } = req.body;
+
+    // validate email
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email already exists'
+      });
+    }
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -49,15 +38,17 @@ const registerUser = async (req, res) => {
       password: hashedPassword,
       contactNumber,
       address,
-      profilePicture: req.file ? req.file.filename : undefined
+      role
     });
 
     // Save the user to the database
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
-  } catch (err) {
-    const errors = handleErrors(err);
-    res.status(400).json({ errors });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message
+    });
   }
 };
 
@@ -71,6 +62,12 @@ const userLogin = async (req, res) => {
     const { email, password } = req.body;
     // Retrieve the user from the database based on the email
     const user = await User.findOne({ email });
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email and password required'
+      });
+    }
     if (!user) {
       // User with the provided email not found
       return res.status(401).json({ error: 'Invalid email or password' });
@@ -82,11 +79,26 @@ const userLogin = async (req, res) => {
       // your password doesnt match
       return res.status(401).json({ error: 'Invalid email or password' });
     }
-    const token = jwt.sign({ userId: user._id }, 'your-secret-key');
+    // const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: 3600 });
     // Return the token as the response
-    res.json({ token });
+    // res.json({ token });
+    generateToken(user, 200, res);
   } catch (error) {
     res.status(500).json({ error: 'Failed to login' });
+  }
+};
+
+const generateToken = async (user, statusCode, res) => {
+  try {
+    const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const options = {
+      httpOnly: true,
+      expires: new Date(Date.now() + 1 * 60 * 60 * 1000) // 1 hour in milliseconds
+    };
+    res.status(statusCode).cookie('token', token, options).json({ success: true, token });
+  } catch (error) {
+    // Handle any error that occurred during token generation
+    res.status(500).json({ success: false, error: 'Failed to generate token' });
   }
 };
 

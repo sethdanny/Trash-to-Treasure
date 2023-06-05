@@ -2,7 +2,6 @@
 
 const express = require('express');
 const router = express.Router();
-const upload = require('../config/multerConfig');
 
 const {
   registerUser,
@@ -12,11 +11,11 @@ const {
   userProfile,
   resetPasswordRequest,
   resetPassword
-} = require('../controllers/userController');
+} = require('../controllers/user');
 
 /* eslint-disable no-unused-vars */
 // user authentications
-router.post('/register', upload.single('profilePicture'), registerUser);
+router.post('/register', registerUser);
 router.get('/register_page', registerPage);
 router.post('/login', userLogin);
 router.post('/logout', userLogout);

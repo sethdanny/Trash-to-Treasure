@@ -3,7 +3,6 @@
   to create  User collection */
 
 const mongoose = require('mongoose');
-const { isEmail } = require('validator');
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -22,8 +21,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please enter an email'],
     unique: true,
-    lowercase: true,
-    validate: [isEmail, 'Please enter a valid Email']
+    lowercase: true
   },
   password: {
     type: String,
@@ -38,8 +36,9 @@ const userSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  profilePicture: {
-    type: String
+  role: {
+    type: Number,
+    default: 0
   }
 }, { timestamps: true });
 
