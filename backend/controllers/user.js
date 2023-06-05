@@ -79,9 +79,6 @@ const userLogin = async (req, res) => {
       // your password doesnt match
       return res.status(401).json({ error: 'Invalid email or password' });
     }
-    // const token = await jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: 3600 });
-    // Return the token as the response
-    // res.json({ token });
     generateToken(user, 200, res);
   } catch (error) {
     res.status(500).json({ error: 'Failed to login' });
