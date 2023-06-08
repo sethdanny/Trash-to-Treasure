@@ -4,6 +4,7 @@ const upload = require('../config/multerConfig');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const ErrorResponse = require('../utils/errorResponse');
 
 const registerUser = async (req, res, next) => {
   try {
@@ -111,6 +112,22 @@ const userLogout = async (req, res, next) => {
   }
 };
 
+const singleUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      const error = new ErrorResponse(`User with id ${req.params.id} is not found`, 404);
+      throw error;
+    }
+    res.status(200).json({
+      success: true,
+      user
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const userProfile = async (req, res) => {
   try {
     const { userId } = req;
@@ -155,6 +172,7 @@ module.exports = {
   registerPage,
   userLogin,
   userLogout,
+  singleUser,
   userProfile,
   resetPasswordRequest,
   resetPassword

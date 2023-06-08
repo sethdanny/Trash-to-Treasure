@@ -7,6 +7,7 @@ const colors = require('colors');
 const connectDB = require('./config/db');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const errorHandler = require('./middlewares/errorHandler');
 
 connectDB();
 
@@ -16,6 +17,8 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
+// error middleware
+app.use(errorHandler);
 
 app.use('/api/user', require('./routes/user'));
 app.use('/api/waste/', require('./routes/wasteListingRoutes'));

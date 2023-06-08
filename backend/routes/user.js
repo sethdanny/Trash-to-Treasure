@@ -8,6 +8,7 @@ const {
   registerPage,
   userLogin,
   userLogout,
+  singleUser,
   userProfile,
   resetPasswordRequest,
   resetPassword
@@ -19,6 +20,7 @@ router.post('/register', registerUser);
 router.get('/register_page', registerPage);
 router.post('/login', userLogin);
 router.post('/logout', userLogout);
+router.get('/:id', singleUser);
 router.get('/profile', userProfile);
 router.post('/password/reset/request', resetPasswordRequest);
 router.post('/password/reset', resetPassword);
