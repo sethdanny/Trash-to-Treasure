@@ -1,21 +1,41 @@
 #!/usr/bin/node
 
-// Waste Listing logic
+const WasteListing = require('../models/wasteListing');
+
+const createWasteListing = async (req, res) => {
+  const {
+    // user,
+    // wasteType,
+    title,
+    description,
+    quantity,
+    location,
+    images,
+    availability
+  } = req.body;
+
+  try {
+    const newWasteListing = new WasteListing({
+      // user,
+      // wasteType,
+      title,
+      description,
+      quantity,
+      location,
+      images,
+      availability
+    });
+    await newWasteListing.save();
+    return res.status(201).json(newWasteListing);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 const getWasteListing = async (req, res) => {
   // Logic to fetch waste listings from the database
   // Return the fetched waste listings as a response
   res.status(200).json({ message: 'Fetch waste listings' });
-};
-
-const createWasteListing = async (req, res) => {
-  // Logic to create a new waste listing in the database
-  // Access the request body to get the details of the waste listing
-  const wasteListing = console.log(req.body);
-
-  // Process the waste listing and store it in the database
-  // Return the created waste listing as a response
-  res.status(200).json({ message: 'Create new waste listing', data: wasteListing });
 };
 
 const updateWasteListing = async (req, res) => {

@@ -8,11 +8,11 @@ const {
   createWasteListing,
   updateWasteListing,
   deleteWasteListing
-} = require('../controllers/wasteListingController');
+} = require('../controllers/wasteListing');
 
 // Routes to handle waste listing
 router.get('/', getWasteListing);
-router.post('/', createWasteListing);
+router.post('/createWasteListing', createWasteListing);
 router.put('/:id', updateWasteListing);
 router.delete('/:id', deleteWasteListing);
 

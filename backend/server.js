@@ -21,7 +21,8 @@ app.use(cookieParser());
 app.use(errorHandler);
 
 app.use('/api/user', require('./routes/user'));
-app.use('/api/waste/', require('./routes/wasteListingRoutes'));
+app.use('/api/waste', require('./routes/wasteListing'));
+app.use('/api/wasteType', require('./routes/wasteType'));
 app.use('/api/pickup-requests', require('./routes/pickupRequestRoutes'));
 
 app.listen(port, () => {
