@@ -3,8 +3,8 @@
 
 const mongoose = require('mongoose');
 const wasteListingSchema = new mongoose.Schema({
-  // user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  // wasteType: { type: mongoose.Schema.Types.ObjectId, ref: 'WasteType', required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  wasteType: { type: mongoose.Schema.Types.ObjectId, ref: 'WasteType', required: true },
   title: { type: String, required: true },
   description: { type: String },
   quantity: { type: Number, default: 1 },

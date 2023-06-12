@@ -8,7 +8,6 @@ const ErrorResponse = require('../utils/errorResponse');
 
 const registerUser = async (req, res, next) => {
   try {
-    // Extract fields from request body
     const {
       firstName,
       lastName,
@@ -19,7 +18,6 @@ const registerUser = async (req, res, next) => {
       role
     } = req.body;
 
-    // validate email
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({
@@ -28,7 +26,6 @@ const registerUser = async (req, res, next) => {
       });
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user instance

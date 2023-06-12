@@ -23,7 +23,7 @@ app.use(errorHandler);
 app.use('/api/user', require('./routes/user'));
 app.use('/api/waste', require('./routes/wasteListing'));
 app.use('/api/wasteType', require('./routes/wasteType'));
-app.use('/api/pickup-requests', require('./routes/pickupRequestRoutes'));
+app.use('/api/pickup-requests', require('./routes/pickupRequest'));
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);

@@ -10,12 +10,12 @@ const {
   getPickupRequests,
   updatePickupRequest,
   deletePickupRequest
-} = require('../controllers/pickupRequestController');
+} = require('../controllers/pickupRequest');
 
 // pickup requests routers
 router.post('/', createPickupRequest);
 router.get('/', getPickupRequests);
-router.put('/:pickupRequestId', updatePickupRequest);
-router.delete('/:pickupRequestId', deletePickupRequest);
+router.put('/:id', updatePickupRequest);
+router.delete('/:id', deletePickupRequest);
 
 module.exports = router;

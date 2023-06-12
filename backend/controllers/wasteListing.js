@@ -4,8 +4,8 @@ const WasteListing = require('../models/wasteListing');
 
 const createWasteListing = async (req, res) => {
   const {
-    // user,
-    // wasteType,
+    user,
+    wasteType,
     title,
     description,
     quantity,
@@ -16,8 +16,8 @@ const createWasteListing = async (req, res) => {
 
   try {
     const newWasteListing = new WasteListing({
-      // user,
-      // wasteType,
+      user,
+      wasteType,
       title,
       description,
       quantity,
