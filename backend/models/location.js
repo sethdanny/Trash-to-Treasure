@@ -4,7 +4,6 @@
 const mongoose = require('mongoose');
 
 const locationSchema = new mongoose.Schema({
-  location_id: { type: mongoose.Schema.Types.ObjectId, required: true, unique: true },
   country: { type: String, required: true },
   city: { type: String, required: true },
   town: { type: String, required: true },
@@ -13,5 +12,4 @@ const locationSchema = new mongoose.Schema({
 });
 
 const Location = mongoose.model('Location', locationSchema);
-
 module.exports = Location;

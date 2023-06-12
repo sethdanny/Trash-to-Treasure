@@ -8,9 +8,10 @@ const wasteListingSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String },
   quantity: { type: Number, default: 1 },
-  location: { type: String },
+  location: { type: mongoose.Schema.Types.ObjectId, ref: 'Location' },
   images: [{ type: String }],
-  availability: { type: Boolean, default: true }
+  availability: { type: Boolean, default: true },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, { timestamps: true });
 
 const WasteListing = mongoose.model('WasteListing', wasteListingSchema);

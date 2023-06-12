@@ -24,6 +24,7 @@ app.use('/api/user', require('./routes/user'));
 app.use('/api/waste', require('./routes/wasteListing'));
 app.use('/api/wasteType', require('./routes/wasteType'));
 app.use('/api/pickup-requests', require('./routes/pickupRequest'));
+app.use('/api/location', require('./routes/location'));
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);

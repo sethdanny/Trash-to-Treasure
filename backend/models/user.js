@@ -3,7 +3,6 @@
   to create  User collection */
 
 const mongoose = require('mongoose');
-
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -39,7 +38,9 @@ const userSchema = new mongoose.Schema({
   role: {
     type: Number,
     default: 0
-  }
+  },
+  listings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'WasteListing' }],
+  pickupRequests: [{ type: mongoose.Schema.Types.ObjectId, ref: 'PickupRequest' }]
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

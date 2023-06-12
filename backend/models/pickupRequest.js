@@ -6,7 +6,9 @@ const pickupRequestSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   wasteListing: { type: mongoose.Schema.Types.ObjectId, ref: 'WasteListing', required: true },
   status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' },
-  additionalDetails: { type: String }
+  additionalDetails: { type: String },
+  requestedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  listing: { type: mongoose.Schema.Types.ObjectId, ref: 'WasteListing' }
 }, { timestamps: true });
 
 const PickupRequest = mongoose.model('PickupRequest', pickupRequestSchema);
